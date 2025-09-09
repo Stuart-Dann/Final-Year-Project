@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<title>Induction Week Planner</title>
+<html lang="en">
+<link rel="icon"
+  href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%206%2016%2016'%3E%3Ctext%20x='0'%20y='20'%3E🦆%3C/text%3E%3C/svg%3E"
+  type="image/svg+xml" />
+<script defer type="module"src="app.js"></script>
+<link rel="stylesheet" href="style.css">
+<div id="userOptions">
+  <div id=user></div>
+  <button id="logoutButton" class="clickable">Logout</button>
+</div>
+
+
+<header>
+  <img src="logo.svg" alt="University of Portsmouth logo" width="200" height="50">
+  <div>
+    <h1 id="inductionTitle">Induction Timetable Manager</h1>
+  </div>
+</header>
+
+<div id="loginScreen">
+  <h1>Login</h1>
+  <form id="loginForm">
+    <label for="loginUsername">Username</label>
+    <input type="text" id="loginUsername" name="username" required placeholder="Enter your username" autocomplete="username">
+    <label for="loginPassword">Password</label>  
+    <input type="password" id="loginPassword" name="password" required placeholder="Enter your password" autocomplete="current-password">
+    <button type="submit" class="clickable" id="loginButton">Login</button>
+  </form>
+</div>
+
+<main class="hidden">
+  <div id="calendarContainer">
+    <div id="filters">
+      <h2>Filters</h2>
+      <div class="filter-container">
+        <button id="lecturerFilter" class="filterButtons clickable">
+            Lecturers
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894z"/>
+            </svg>
+        </button>
+    </div>
+    <div class="filter-container">
+        <button id="courseFilter" class="filterButtons clickable">
+            Courses
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894z"/>
+            </svg>
+        </button>
+    </div>
+    <div class="filter-container">
+        <button id="zoneFilter" class="filterButtons clickable">
+            Zones
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894z"/>
+            </svg>
+        </button>
+    </div>
+    <div class="filter-container">
+        <button id="levelFilter" class="filterButtons clickable">
+            Level
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894z"/>
+            </svg>
+        </button>
+    </div>
+      <button id="clearFilters" class="clickable">Clear Filters</button>
+    </div>
+    <div id="calendar" class="calendar"></div>
+    <div id="exportCreateUserContainer">
+      <div id="exportButtonsContainer">
+        <button id="exportToCSV" class="exportButtons clickable">Export to CSV</button>
+        <button id="exportToJSON" class="exportButtons clickable">Export to JSON</button>
+      </div>
+    </div>
+  </div>
+  <div id="details" class="details">
+  </div>
+  <div id="formConfirmationContainer" class="hidden">
+    <p id="formConfirmation"></p>
+  </div>
+</main>
+
+<footer>
+  <code id="csv">
+    Text here...
+  </code>
+
+  <pre id="inputerrors"></pre>
+</footer>

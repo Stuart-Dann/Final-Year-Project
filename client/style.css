@@ -1,0 +1,523 @@
+:root {
+    --dir: row;
+    --hi: #FE6;
+    --selected: #b3d9ff;
+    --calendar-columns: 5;
+    --max-width: 60%;
+    --md-checkbox-icon-size: 1em;
+    --md-checkbox-container-size: 1em;
+    --md-checkbox-container-shape: 2px;
+    --md-checkbox-state-layer-size: 2em;
+}
+
+footer{
+    display: none;
+}
+
+@media (width<40em) {
+    :root {
+        --dir: column;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#user {
+    text-align: right;
+}
+
+main, header, footer, aside {
+    max-width: var(--max-width);
+    margin: auto;
+} 
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+#loginScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    z-index: 1000; /* Ensure it appears above all other content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    background: white;
+    padding: 2em;
+    margin: 1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#loginForm input {
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+header {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 0;
+    width: 100%;
+    align-items: center;    
+}
+
+header > * {
+    margin: 1em;
+}
+
+header p {
+    font-size: 80%;
+}
+
+body > * {
+    padding: 1em;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: auto repeat(var(--calendar-columns), 1fr);
+    grid-auto-rows: min-content;
+    gap: thin;
+    overflow: hidden;
+    flex-grow: 1;
+    flex-shrink: 0;
+    height: fit-content;
+    min-width: 110%;
+    max-width: 110%;
+}
+
+.time-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+    transition: border 1s ease;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    min-height: 3em;
+}
+
+.time-slot:hover {
+    transition: border 0.2s ease;
+    border:1px solid #F66;
+    cursor: pointer
+}
+
+.selected {
+    background-color: var(--selected)
+}
+
+.label {
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    padding: 0.5em;
+}
+
+#eventForm   {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-auto-rows: auto;
+    width: 100%;
+    gap: 0.25em;
+    border: #333 1px solid;
+    border-radius: 5px;
+    margin: 2em auto;
+    padding: 2em 1.5em;
+    box-sizing: border-box;
+}
+
+#eventForm p {
+    margin-right: 1em;
+}
+
+#eventForm input, #desc {
+    padding: 0.5em 1em;
+    border-radius: 5px;
+}
+
+
+#eventForm select {
+    padding: 0.5em 1em;
+    border-radius: 4px; 
+    width: 100%;
+    background-color: white;
+    font-size: 1em;
+    color: #333;
+    cursor: pointer;
+}
+
+#eventForm select:invalid {
+    background-color: #FF999999;
+}
+
+#eventForm select option:hover{
+    background-color: #FE6;
+}
+
+#eventForm select option:checked{
+    background-color: #9A00D7;
+    color: white;
+}
+
+#eventForm label, #eventForm label * {
+    cursor: pointer;
+    flex-grow: 1;
+    padding: 0.25em;
+    text-align: center;
+}
+
+#eventForm label:has(input[type=radio]) {
+    background: #ddd;
+    border-radius: 0.2em;
+}
+
+
+#eventForm label:has(input[type=radio]):hover,
+#eventForm label:has(input[type=radio]):active {
+    background: white;
+    cursor: pointer;
+}
+
+
+#eventForm label:has(input:checked) {
+    background: white;
+}
+
+
+
+
+#eventForm .checkboxgroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: left;
+    gap: 0.2em;
+}
+
+#eventForm .radiogroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: center;
+    gap: 0.2em;
+}
+
+
+#eventForm label:has(input:invalid) {
+    box-shadow: inset 0 0 0 1px #e74c3c;
+}
+
+#eventForm input:required:invalid {
+    border: #e74c3c 1px solid;
+}
+
+#eventForm .checkboxgroup:has(input:not(checked)){
+    box-shadow: inset 0 0 0 1px #e74c3c;
+    border-radius: 5px;
+    padding: 0.25em;
+}
+
+#eventForm .checkboxgroup:has(input:checked) {
+    box-shadow: none; /* Remove the invalid background when at least one checkbox is checked */
+}
+
+#desc {
+    width: 100%;
+    min-height: 3em;
+    resize: vertical;
+}
+
+[readonly] {
+    border: none;
+}
+
+#inputerrors {
+    max-height: 100vh;
+    overflow-y: scroll;
+}
+
+#calendarContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: center;
+}
+
+#filters{
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 20%;
+    max-width: 20%;
+    background-color: #D9D9D9;
+    padding: 0.5em;
+    padding-bottom: 1em;
+    align-self: flex-start;
+}
+
+#filters h2{
+    padding-bottom: 0.25em;
+}
+
+.filterButtons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    margin-left: 5%;
+    text-align: left;
+}
+
+.filterButtons .chevron {
+    width: 1em;
+    height: 1em;
+    transition: transform 0.3s ease;
+    fill: white;
+}
+
+.filterButtons.opened {
+    border-radius: 5px 5px 0px 5px; /* Change background color when opened */
+}
+
+.filterButtons.opened .chevron {
+    transform: rotate(180deg); /* Rotate the chevron when the dropdown is open */
+}
+
+.filterOption{
+    border-radius: 0px 0px 5px 5px;
+    list-style-type: none;
+}
+
+.filter{
+    display: flex;
+    flex-direction: row-reverse;
+    min-width: auto;
+    background-color: #be48ec;
+    border: none;
+    margin-right: 0.5em;
+    padding: 5px 0px 5px 5px;
+    width: 90%;
+    margin-left: 10%;
+    text-align: left;
+    color: white;
+    justify-content: flex-end;
+    gap: 5px;
+    align-items: center;
+}
+
+.filter md-checkbox{
+    min-height: 1em;
+    min-width: 1em;
+}
+
+.event{
+    user-select: none;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    gap: 0.5em;
+    padding: 5px;
+    margin: 5px;
+    font-size: small;
+}
+
+#formButtons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5em;
+}
+
+#addEvent{
+    width: 70%;
+}
+
+#addEvent:disabled{
+    background-color: #FF999999;
+    color: black;
+    cursor: not-allowed;
+}
+
+#clearForm{
+    background-color: white;
+    color: #9A00D7;
+    border: 1px solid #9A00D7;
+    border-radius: 5px;
+    width: 15%;
+    cursor: pointer;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+#clearForm:hover{
+    background-color: #9A00D7;
+    color: white;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+#deleteEvent{
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em;
+    cursor: pointer;
+    width: 15%;
+}
+
+#deleteEvent:disabled{
+    background-color: #FF999999;
+    color: black;
+    cursor: not-allowed;
+}
+
+#formHeading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+#exportButtonsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0.5em;
+    border-radius: 5px;
+    min-width: 30%;
+}
+
+.exportButtons{
+    width: 100%;
+    max-height: fit-content;
+}
+
+#clearFilters{
+    width: 100%;
+}
+
+.clickable {
+    background-color: #9A00D7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+}
+
+.clickable:hover {
+    background-color: #65018d;
+    transition: background-color 0.4s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#inductionTitle {
+    text-align: center;
+}
+
+#userOptions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5em;
+    padding: 0.5em;
+    border-radius: 5px;
+    min-width: 30%;
+}
+
+#exportCreateUserContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    min-width: 30%;
+}
+
+#createDeleteUserContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0.5em;
+    min-width: 30%;
+    border: #333 1px solid;
+    border-radius: 5px;
+}
+
+.userForm{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0.5em;
+    border-radius: 5px;
+    min-width: 30%;
+}
+
+.userForm input{
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#createAdminLabel{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5em;
+    padding: 0.5em;
+    background-color: #D9D9D9;
+    border-radius: 5px;
+}
+
+#createAdminLabel:hover{
+    background-color: #C0C0C0;
+    cursor: pointer;
+}
+
+#courses .clickable{
+    padding: 0.25em;
+    margin-left: 0.25em;
+    margin-top: 0.25em;
+}
+
+.event-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 3em;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.event-duration {
+    white-space: nowrap;;
+}

@@ -1,0 +1,33 @@
+{
+  "name": "induction-timetable-constructor",
+  "version": "1.0.0",
+  "description": "A tool for managing student induction events",
+  "main": "svr.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --watch svr.js && ngrok http 8080 --host-header='localhost:8080'"
+  },
+  "author": "Stuart Dann <stuartdann03@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-portsoc": "^1.0.1"
+  },
+  "eslintConfig": {
+    "extends": "portsoc",
+    "root": true,
+    "env": {
+      "browser": true
+    }
+  },
+  "dependencies": {
+    "@ngrok/ngrok": "^1.5.1",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "express": "^5.0.0-beta.1",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.3",
+    "uuid-random": "^1.3.2"
+  }
+}
